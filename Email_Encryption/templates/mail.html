@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<section id="home" class="home">
+
+    <div class="theme">
+        <input type="checkbox" id="checkbox" class="checkbox">
+        <label class="label" for="checkbox">
+            <div class="ball"></div>
+        </label>
+    </div>
+ 
+    <h1 class="banner mailbanner">Send Encrypted Emails</h1>
+    
+    <form method="post">
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}  
+        {% if messages %}  
+            {% for message in messages %} 
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }} 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}  
+        {% endif %}  
+        {% endwith %} 
+
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}  
+        {% if messages %}  
+            {% for message in messages %} 
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ message }} 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}  
+        {% endif %}  
+        {% endwith %} 
+
+        <input name="receiver" id="receiver" class="receiver" placeholder="example@gmail.com" required>
+        <input name="subject" id="subject" class="subject" placeholder="Subject" required>
+
+        <textarea name="mail_content" cols="50" rows="10" id="mail_content" class="mail_content" placeholder="Write your email..."></textarea>
+
+        <input type="submit" value="Send">
+    </form>
+
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+
+    <div class="fas fa-envelope mail1"></div>
+    <div class="fas fa-envelope mail2"></div>
+
+</section>
+{% endblock %}

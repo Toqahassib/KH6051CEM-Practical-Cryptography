@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<section id="home" class="home">
+
+    <div class="theme">
+        <input type="checkbox" id="checkbox" class="checkbox">
+        <label class="label" for="checkbox">
+            <div class="ball"></div>
+        </label>
+    </div>
+    
+    <h1 class="banner mailbanner">Decrypt Emails</h1>
+
+    <form method="post">
+
+        <input name="encrypted" type="text" id="encrypted" class="encrypted" placeholder="encrypted text...">
+        <input name="tag" type="text" id="tag" class="tag" placeholder="tag...">
+        <input name="nonce" type="nonce" id="nonce" class="nonce" placeholder="nonce...">
+
+        <input type="submit" value="Decrypt">
+
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}  
+        {% if messages %}  
+            {% for message in messages %} 
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }} 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}  
+        {% endif %}  
+        {% endwith %} 
+
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}  
+        {% if messages %}  
+            {% for message in messages %} 
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ message }} 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}  
+        {% endif %}  
+        {% endwith %} 
+    </form>
+    <!-- <textarea name="paragraph_text" cols="50" rows="3" id="decrypt_text" class="decrypt_text" placeholder=""></textarea> -->
+
+
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+
+    <div class="fas fa-envelope mail1"></div>
+    <div class="fas fa-envelope mail2"></div>
+
+</section>
+{% endblock %}
