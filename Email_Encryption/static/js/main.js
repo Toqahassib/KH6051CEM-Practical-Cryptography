@@ -1,5 +1,4 @@
 // Theme
-
 const themeToggle = document.querySelector(".checkbox");
 const body = document.querySelector("body");
 
@@ -15,7 +14,6 @@ themeToggle.addEventListener("change", function () {
   body.classList.toggle("dark");
 
   if (body.classList.contains("dark")) {
-
     // dark mode will stay after refreshing the page
     localStorage.setItem("dark", "active");
   } else {
