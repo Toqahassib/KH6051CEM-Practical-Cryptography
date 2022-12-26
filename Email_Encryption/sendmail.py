@@ -6,10 +6,14 @@ from email.message import EmailMessage
 import os
 # importing AES
 from Crypto.Cipher import AES
+# importing groups for diffie hellman
+from DHE_groups import groups
 
+P = groups[14][1]
+G = groups[14][0]
 
-# encryption key
-key = b'C&F)H@McQfTjWnZr'
+# private key
+private_key = eval(os.environ.get("private_key"))
 
 # define email data
 sender = 'toqahassib@gmail.com'
@@ -17,15 +21,20 @@ password = os.environ.get("EMAIL_PASS")
 
 
 def SendMail(receiver, subject, body):
+    public_key = int(pow(G, private_key, P))
+    secret_key = str(pow(public_key, private_key, P))[0:32].encode()
+
     # create new instance of cipher
-    cipher = AES.new(key, AES.MODE_EAX)
+    cipher = AES.new(secret_key, AES.MODE_EAX)
 
     nonce = cipher.nonce
 
     encrypted_msg, tag = cipher.encrypt_and_digest(body.encode())
+    print(tag)
+    print("\n", encrypted_msg)
 
-    content = "Encrypted msg is: {} \nTag is: {} \nnonce is: {}".format(
-        encrypted_msg, tag, nonce)
+    content = "Encrypted msg is: {} \nTag is: {} \nnonce is: {} \nPublic Key is: {}".format(
+        encrypted_msg, tag, nonce, public_key)
 
     email = EmailMessage()
     email['From'] = sender
@@ -45,3 +54,6 @@ def SendMail(receiver, subject, body):
     except SMTPRecipientsRefused:
         flash("The email address '{}' is not valid".format(
             receiver), "error")
+
+
+SendMail('test', 'test', 'test')
