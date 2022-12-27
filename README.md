@@ -4,9 +4,9 @@ The encrypted E-mail communication application begins with a sender creating a m
 
 ## Requirements
 
-> python3
-> pip install flask
-> pip install pycryptodome
+> python3. 
+> pip install flask. 
+> pip install pycryptodome. 
 
 
 ## Installing 
