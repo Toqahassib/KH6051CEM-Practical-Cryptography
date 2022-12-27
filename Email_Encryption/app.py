@@ -1,5 +1,4 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
-
 from sendmail import SendMail
 from decrypt import Decrypt, key
 
@@ -10,14 +9,14 @@ app.config["SECRET_KEY"] = "crypto"
 @app.route('/sendmail', methods=('GET', 'POST'))
 def sendmail():
     if request.method == 'POST':
+        # get all the inputes
         receiver = request.form["receiver"]
         subject = request.form["subject"]
         body = request.form["mail_content"]
+        # execute the sendmail function
         SendMail(receiver, subject, body)
 
         return redirect(url_for('sendmail'))
-
-    # redirect
     return render_template("mail.html")
 
 
@@ -25,11 +24,12 @@ def sendmail():
 def decrypt():
     if request.method == 'POST':
         try:
+            # get all the inputes
             public_key = eval(request.form["public_key"])
             encrypted = eval(request.form["encrypted"])
             tag = eval(request.form["tag"])
             nonce = eval(request.form["nonce"])
-
+            # execute the decrypt function
             Decrypt(key(public_key), encrypted, tag, nonce)
         except SyntaxError:
             flash("Invali Input", "error")
